@@ -11,6 +11,8 @@ def load_students():
         return students
 
 
+
+
 def load_professions():
     """
     Считывает профессии из файла
@@ -19,7 +21,6 @@ def load_professions():
     with open('professions.json', 'rt') as file:
         professions = json.load(file)
         return professions
-
 
 def get_student_by_pk(pk, students):
     """
@@ -31,17 +32,15 @@ def get_student_by_pk(pk, students):
         if students[i]['pk'] == pk:
             return students[i]
 
-
 def get_skill_student_by_name(name, students):
     """
     :param name: Имя студента
     :param students: Файл с информацией о студентах
     :return: Возвращает навыки студента
     """
-    for i in range(len(students)):
+    for i  in range(len(students)):
         if students[i]['full_name'] == name:
             return students[i]['skills']
-
 
 def get_profession_by_title(title, professions):
     """
@@ -60,10 +59,10 @@ def check_fitness(student, profession):
     :param profession: Выбор профессии
     :return: Возвращает проф пригодность в виде словаря
     """
-    # Скиллы ученика
-    skill_student = get_skill_student_by_name(student, load_students())
-    # Скиллы профессии
-    skill_profession = get_profession_by_title(profession, load_professions())
+    #Скиллы ученика
+    skill_student = student['skills']
+    #Скиллы профессии
+    skill_profession = profession
     student_skills = set(skill_student)
     profession_skills = set(skill_profession)
     has = profession_skills.intersection(student_skills)
@@ -71,7 +70,8 @@ def check_fitness(student, profession):
     fit_persent = len(has) / len(profession_skills) * 100
     available_knowledge = {
         "has": 'Необходимых знаний нет' if len(has) == 0 else has,
-        "lacks": 'Нужные знания получены' if len(lacks) == 0 else lacks,
+        "lacks": 'Нужные знания получены' if len(lacks) == 0 else lacks ,
         "fit_percent": fit_persent
-    }
+        }
     return available_knowledge
+
